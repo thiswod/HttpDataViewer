@@ -29,6 +29,7 @@ namespace QueryStringView
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             textBox1 = new TextBox();
             listView1 = new SuperListView();
             columnHeader1 = new ColumnHeader();
@@ -149,6 +150,7 @@ namespace QueryStringView
             ContextMenuStrip = titleContextMenuStrip;
             Controls.Add(listView1);
             Controls.Add(textBox1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Form1";
             Text = "QueryStringView";
             FormClosing += Form1_FormClosing;
