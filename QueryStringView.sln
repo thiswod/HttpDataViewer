@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36511.14 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryStringView", "QueryStringView.csproj", "{204320DA-FAF5-4EC2-97FF-386A5DB1840E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{204320DA-FAF5-4EC2-97FF-386A5DB1840E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{204320DA-FAF5-4EC2-97FF-386A5DB1840E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{204320DA-FAF5-4EC2-97FF-386A5DB1840E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{204320DA-FAF5-4EC2-97FF-386A5DB1840E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {53B4D529-713F-4C9E-9586-5DC215B71DC9}
+	EndGlobalSection
+EndGlobal
