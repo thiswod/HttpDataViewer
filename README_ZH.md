@@ -44,4 +44,5 @@ QueryStringView 是一款轻量级、高效的URL查询字符串解析和可视�
 欢迎提交问题和建议，帮助我们改进这个工具！
 
 ## 多语言支持
-此项目支持多语言文档，您可以查看 [README.md](README.md) 获取英文版本。
+此项目支持多语言文档，您可以查看以下版本：
+- [README.md](README.md) - English (英文)

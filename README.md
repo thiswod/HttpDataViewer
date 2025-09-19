@@ -44,4 +44,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 Contributions are welcome! Please submit issues and suggestions to help us improve this tool!
 
 ## Multi-language Support
-This project supports multi-language documentation. You can view [README_ZH.md](README_ZH.md) for the Chinese version.
+This project supports multi-language documentation. You can view the following translations:
+- [README_ZH.md](README_ZH.md) - Chinese Simplified (简体中文)
