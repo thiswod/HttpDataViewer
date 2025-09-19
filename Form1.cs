@@ -80,7 +80,7 @@ namespace QueryStringView
             if (cancellationToken.IsCancellationRequested)
                 return;
 
-            string Qeurystring = "";
+            string Qeurystring = ""; 
             this.Invoke(() =>
             {
                 Qeurystring = textBox1.Text;
