@@ -41,6 +41,7 @@ namespace QueryStringView
             修改ToolStripMenuItem = new ToolStripMenuItem();
             titleContextMenuStrip = new ContextMenuStrip(components);
             修改窗口标题ToolStripMenuItem = new ToolStripMenuItem();
+            saveFileDialog1 = new SaveFileDialog();
             contextMenuStrip1.SuspendLayout();
             titleContextMenuStrip.SuspendLayout();
             SuspendLayout();
@@ -126,14 +127,19 @@ namespace QueryStringView
             // 
             titleContextMenuStrip.Items.AddRange(new ToolStripItem[] { 修改窗口标题ToolStripMenuItem });
             titleContextMenuStrip.Name = "titleContextMenuStrip";
-            titleContextMenuStrip.Size = new Size(135, 26);
+            titleContextMenuStrip.Size = new Size(149, 26);
             // 
             // 修改窗口标题ToolStripMenuItem
             // 
             修改窗口标题ToolStripMenuItem.Name = "修改窗口标题ToolStripMenuItem";
-            修改窗口标题ToolStripMenuItem.Size = new Size(134, 22);
+            修改窗口标题ToolStripMenuItem.Size = new Size(148, 22);
             修改窗口标题ToolStripMenuItem.Text = "修改窗口标题";
             修改窗口标题ToolStripMenuItem.Click += 修改窗口标题ToolStripMenuItem_Click;
+            // 
+            // saveFileDialog1
+            // 
+            saveFileDialog1.DefaultExt = "Qsv";
+            saveFileDialog1.Filter = "QueryStringView 文件|*.qsv";
             // 
             // Form1
             // 
@@ -145,6 +151,7 @@ namespace QueryStringView
             Controls.Add(textBox1);
             Name = "Form1";
             Text = "QueryStringView";
+            FormClosing += Form1_FormClosing;
             Load += Form1_Load;
             contextMenuStrip1.ResumeLayout(false);
             titleContextMenuStrip.ResumeLayout(false);
@@ -166,5 +173,6 @@ namespace QueryStringView
         private ToolStripMenuItem 修改ToolStripMenuItem;
         private ContextMenuStrip titleContextMenuStrip;
         private ToolStripMenuItem 修改窗口标题ToolStripMenuItem;
+        private SaveFileDialog saveFileDialog1;
     }
 }
