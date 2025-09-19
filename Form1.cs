@@ -122,7 +122,45 @@ namespace QueryStringView
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            // 窗口加载时的初始化代码
+        }
 
+        // 重写WndProc方法捕获窗口标题栏右键点击事件
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_NCRBUTTONDOWN = 0x00A4; // 非客户区右键按下
+            const int HTCAPTION = 0x0002; // 标题栏区域
+
+            if (m.Msg == WM_NCRBUTTONDOWN && m.WParam.ToInt32() == HTCAPTION)
+            {
+                // 显示自定义右键菜单
+                titleContextMenuStrip.Show(Cursor.Position);
+                return;
+            }
+
+            base.WndProc(ref m);
+        }
+
+        private void 修改窗口标题ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // 使用现有的InputDialog类来让用户输入新的窗口标题
+            using (var inputDialog = new InputDialog("修改窗口标题", "输入新的窗口标题："))
+            {
+                // 设置默认值为当前窗口标题
+                inputDialog.Controls.OfType<TextBox>().FirstOrDefault()!.Text = this.Text;
+                inputDialog.Controls.OfType<TextBox>().FirstOrDefault()!.SelectAll();
+                inputDialog.StartPosition = FormStartPosition.CenterParent;
+
+                // 显示对话框并处理结果
+                if (inputDialog.ShowDialog(this) == DialogResult.OK)
+                {
+                    string newTitle = inputDialog.InputText.Trim();
+                    if (!string.IsNullOrEmpty(newTitle))
+                    {
+                        this.Text = newTitle;
+                    }
+                }
+            }
         }
 
         private void 复制键ToolStripMenuItem_Click(object sender, EventArgs e)

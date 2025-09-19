@@ -1,4 +1,4 @@
-﻿namespace QueryStringView
+namespace QueryStringView
 {
     partial class Form1
     {
@@ -39,7 +39,10 @@
             contextMenuStrip1 = new ContextMenuStrip(components);
             复制ToolStripMenuItem = new ToolStripMenuItem();
             修改ToolStripMenuItem = new ToolStripMenuItem();
+            titleContextMenuStrip = new ContextMenuStrip(components);
+            修改窗口标题ToolStripMenuItem = new ToolStripMenuItem();
             contextMenuStrip1.SuspendLayout();
+            titleContextMenuStrip.SuspendLayout();
             SuspendLayout();
             // 
             // textBox1
@@ -119,17 +122,32 @@
             修改ToolStripMenuItem.Text = "修改";
             修改ToolStripMenuItem.Click += 修改ToolStripMenuItem_Click;
             // 
+            // titleContextMenuStrip
+            // 
+            titleContextMenuStrip.Items.AddRange(new ToolStripItem[] { 修改窗口标题ToolStripMenuItem });
+            titleContextMenuStrip.Name = "titleContextMenuStrip";
+            titleContextMenuStrip.Size = new Size(135, 26);
+            // 
+            // 修改窗口标题ToolStripMenuItem
+            // 
+            修改窗口标题ToolStripMenuItem.Name = "修改窗口标题ToolStripMenuItem";
+            修改窗口标题ToolStripMenuItem.Size = new Size(134, 22);
+            修改窗口标题ToolStripMenuItem.Text = "修改窗口标题";
+            修改窗口标题ToolStripMenuItem.Click += 修改窗口标题ToolStripMenuItem_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(567, 684);
+            ContextMenuStrip = titleContextMenuStrip;
             Controls.Add(listView1);
             Controls.Add(textBox1);
             Name = "Form1";
             Text = "QueryStringView";
             Load += Form1_Load;
             contextMenuStrip1.ResumeLayout(false);
+            titleContextMenuStrip.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -146,5 +164,7 @@
         private ContextMenuStrip contextMenuStrip1;
         private ToolStripMenuItem 复制ToolStripMenuItem;
         private ToolStripMenuItem 修改ToolStripMenuItem;
+        private ContextMenuStrip titleContextMenuStrip;
+        private ToolStripMenuItem 修改窗口标题ToolStripMenuItem;
     }
 }
