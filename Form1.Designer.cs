@@ -42,7 +42,18 @@ namespace QueryStringView
             修改ToolStripMenuItem = new ToolStripMenuItem();
             titleContextMenuStrip = new ContextMenuStrip(components);
             修改窗口标题ToolStripMenuItem = new ToolStripMenuItem();
+            toolStripMenuItem1 = new ToolStripSeparator();
+            窗口置顶ToolStripMenuItem = new ToolStripMenuItem();
             saveFileDialog1 = new SaveFileDialog();
+            toolStripMenuItem2 = new ToolStripSeparator();
+            保存ToolStripMenuItem = new ToolStripMenuItem();
+            另存为ToolStripMenuItem = new ToolStripMenuItem();
+            新窗口ToolStripMenuItem = new ToolStripMenuItem();
+            toolStripMenuItem3 = new ToolStripSeparator();
+            toolStripMenuItem4 = new ToolStripSeparator();
+            退出ToolStripMenuItem = new ToolStripMenuItem();
+            toolStripMenuItem5 = new ToolStripSeparator();
+            打开ToolStripMenuItem = new ToolStripMenuItem();
             contextMenuStrip1.SuspendLayout();
             titleContextMenuStrip.SuspendLayout();
             SuspendLayout();
@@ -126,21 +137,91 @@ namespace QueryStringView
             // 
             // titleContextMenuStrip
             // 
-            titleContextMenuStrip.Items.AddRange(new ToolStripItem[] { 修改窗口标题ToolStripMenuItem });
+            titleContextMenuStrip.Items.AddRange(new ToolStripItem[] { 修改窗口标题ToolStripMenuItem, toolStripMenuItem1, 窗口置顶ToolStripMenuItem, toolStripMenuItem5, 打开ToolStripMenuItem, toolStripMenuItem3, 新窗口ToolStripMenuItem, toolStripMenuItem2, 保存ToolStripMenuItem, 另存为ToolStripMenuItem, toolStripMenuItem4, 退出ToolStripMenuItem });
             titleContextMenuStrip.Name = "titleContextMenuStrip";
-            titleContextMenuStrip.Size = new Size(149, 26);
+            titleContextMenuStrip.ShowImageMargin = false;
+            titleContextMenuStrip.Size = new Size(156, 210);
             // 
             // 修改窗口标题ToolStripMenuItem
             // 
             修改窗口标题ToolStripMenuItem.Name = "修改窗口标题ToolStripMenuItem";
-            修改窗口标题ToolStripMenuItem.Size = new Size(148, 22);
+            修改窗口标题ToolStripMenuItem.Size = new Size(155, 22);
             修改窗口标题ToolStripMenuItem.Text = "修改窗口标题";
             修改窗口标题ToolStripMenuItem.Click += 修改窗口标题ToolStripMenuItem_Click;
+            // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new Size(152, 6);
+            // 
+            // 窗口置顶ToolStripMenuItem
+            // 
+            窗口置顶ToolStripMenuItem.Name = "窗口置顶ToolStripMenuItem";
+            窗口置顶ToolStripMenuItem.Size = new Size(155, 22);
+            窗口置顶ToolStripMenuItem.Text = "窗口置顶";
+            窗口置顶ToolStripMenuItem.Click += 窗口置顶ToolStripMenuItem_Click;
             // 
             // saveFileDialog1
             // 
             saveFileDialog1.DefaultExt = "Qsv";
             saveFileDialog1.Filter = "QueryStringView 文件|*.qsv";
+            // 
+            // toolStripMenuItem2
+            // 
+            toolStripMenuItem2.Name = "toolStripMenuItem2";
+            toolStripMenuItem2.Size = new Size(152, 6);
+            // 
+            // 保存ToolStripMenuItem
+            // 
+            保存ToolStripMenuItem.Name = "保存ToolStripMenuItem";
+            保存ToolStripMenuItem.Size = new Size(155, 22);
+            保存ToolStripMenuItem.Text = "保存";
+            保存ToolStripMenuItem.Click += 保存ToolStripMenuItem_Click;
+            // 
+            // 另存为ToolStripMenuItem
+            // 
+            另存为ToolStripMenuItem.Name = "另存为ToolStripMenuItem";
+            另存为ToolStripMenuItem.Size = new Size(155, 22);
+            另存为ToolStripMenuItem.Text = "另存为";
+            另存为ToolStripMenuItem.Click += 另存为ToolStripMenuItem_Click;
+            // 
+            // 新窗口ToolStripMenuItem
+            // 
+            新窗口ToolStripMenuItem.Name = "新窗口ToolStripMenuItem";
+            新窗口ToolStripMenuItem.Size = new Size(155, 22);
+            新窗口ToolStripMenuItem.Text = "新窗口";
+            新窗口ToolStripMenuItem.ToolTipText = "打开一个新窗口";
+            新窗口ToolStripMenuItem.Click += 新窗口ToolStripMenuItem_Click;
+            // 
+            // toolStripMenuItem3
+            // 
+            toolStripMenuItem3.Name = "toolStripMenuItem3";
+            toolStripMenuItem3.Size = new Size(152, 6);
+            // 
+            // toolStripMenuItem4
+            // 
+            toolStripMenuItem4.Name = "toolStripMenuItem4";
+            toolStripMenuItem4.Size = new Size(152, 6);
+            // 
+            // 退出ToolStripMenuItem
+            // 
+            退出ToolStripMenuItem.Name = "退出ToolStripMenuItem";
+            退出ToolStripMenuItem.Size = new Size(155, 22);
+            退出ToolStripMenuItem.Text = "退出";
+            退出ToolStripMenuItem.Click += 退出ToolStripMenuItem_Click;
+            // 
+            // toolStripMenuItem5
+            // 
+            toolStripMenuItem5.Name = "toolStripMenuItem5";
+            toolStripMenuItem5.Size = new Size(152, 6);
+            // 
+            // 打开ToolStripMenuItem
+            // 
+            打开ToolStripMenuItem.Name = "打开ToolStripMenuItem";
+            打开ToolStripMenuItem.Size = new Size(155, 22);
+            打开ToolStripMenuItem.Text = "打开";
+            打开ToolStripMenuItem.ToolTipText = "打开一个QSV文件";
+            打开ToolStripMenuItem.Click += 打开ToolStripMenuItem_Click;
             // 
             // Form1
             // 
@@ -176,5 +257,16 @@ namespace QueryStringView
         private ContextMenuStrip titleContextMenuStrip;
         private ToolStripMenuItem 修改窗口标题ToolStripMenuItem;
         private SaveFileDialog saveFileDialog1;
+        private ToolStripMenuItem 窗口置顶ToolStripMenuItem;
+        private ToolStripSeparator toolStripMenuItem1;
+        private ToolStripSeparator toolStripMenuItem5;
+        private ToolStripMenuItem 打开ToolStripMenuItem;
+        private ToolStripSeparator toolStripMenuItem3;
+        private ToolStripMenuItem 新窗口ToolStripMenuItem;
+        private ToolStripSeparator toolStripMenuItem2;
+        private ToolStripMenuItem 保存ToolStripMenuItem;
+        private ToolStripMenuItem 另存为ToolStripMenuItem;
+        private ToolStripSeparator toolStripMenuItem4;
+        private ToolStripMenuItem 退出ToolStripMenuItem;
     }
 }

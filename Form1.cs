@@ -5,6 +5,7 @@ using static System.Windows.Forms.ListView;
 using System.Text.Json;
 using System.IO;
 using System;
+using System.Linq;
 
 namespace QueryStringView
 {
@@ -30,6 +31,11 @@ namespace QueryStringView
             // 初始化保存对话框
             saveFileDialog1.Filter = "查询字符串文件 (*.qsv)|*.qsv|所有文件 (*.*)|*.*";
             saveFileDialog1.DefaultExt = "qsv";
+            
+            // 初始化打开文件对话框
+            var openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "查询字符串文件 (*.qsv)|*.qsv|所有文件 (*.*)|*.*";
+            openFileDialog.DefaultExt = "qsv";
         }
 
         // 用于通过命令行参数打开文件的公共方法
@@ -62,7 +68,7 @@ namespace QueryStringView
             {
                 _isContentModified = true;
             }
-            
+
             // 取消前一个可能还在运行的任务
             _cancellationTokenSource.Cancel();
             _cancellationTokenSource.Dispose();
@@ -80,7 +86,7 @@ namespace QueryStringView
             if (cancellationToken.IsCancellationRequested)
                 return;
 
-            string Qeurystring = ""; 
+            string Qeurystring = "";
             this.Invoke(() =>
             {
                 Qeurystring = textBox1.Text;
@@ -290,7 +296,7 @@ namespace QueryStringView
             if (_isContentModified)
             {
                 DialogResult result = MessageBox.Show("内容已修改，是否保存？", "提示", MessageBoxButtons.YesNoCancel);
-                
+
                 if (result == DialogResult.Yes)
                 {
                     // 如果已有保存路径，直接保存；否则显示保存对话框
@@ -332,17 +338,17 @@ namespace QueryStringView
                 {
                     string jsonContent = File.ReadAllText(filePath);
                     var fileData = JsonSerializer.Deserialize<FileContent>(jsonContent);
-                    
+
                     if (fileData != null)
                     {
                         // 直接更新UI，因为现在已经在UI线程上
                         this.Text = fileData.title ?? "QueryStringView";
                         textBox1.Text = fileData.queryString ?? "";
-                        
+
                         // 更新当前文件路径和重置修改标志
                         _currentFilePath = filePath;
                         _isContentModified = false;
-                        
+
                         // 设置抑制标志，防止触发textBox1_TextChanged时更新修改标志
                         _suppressContentModified = true;
                         try
@@ -376,13 +382,14 @@ namespace QueryStringView
         {
             try
             {
-                var FileContent = new { 
+                var FileContent = new
+                {
                     title = this.Text,
                     queryString = textBox1.Text,
                 };
                 string TextJson = JsonSerializer.Serialize(FileContent);
                 File.WriteAllText(filePath, TextJson);
-                
+
                 // 更新当前文件路径和重置修改标志
                 _currentFilePath = filePath;
                 _isContentModified = false;
@@ -398,6 +405,105 @@ namespace QueryStringView
         {
             public string? title { get; set; }
             public string? queryString { get; set; }
+        }
+
+        private void 窗口置顶ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.TopMost)
+            {
+                this.TopMost = false;
+                窗口置顶ToolStripMenuItem.Text = "窗口置顶";
+            }
+            else
+            {
+                this.TopMost = true;
+                窗口置顶ToolStripMenuItem.Text = "取消窗口置顶";
+            }
+        }
+
+        private void 打开ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "查询字符串文件 (*.qsv)|*.qsv|所有文件 (*.*)|*.*";
+                openFileDialog.DefaultExt = "qsv";
+                
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // 先检查当前内容是否被修改，如果是则提示保存
+                    if (_isContentModified)
+                    {
+                        DialogResult result = MessageBox.Show("当前内容已修改，是否保存？", "提示", MessageBoxButtons.YesNoCancel);
+                        
+                        if (result == DialogResult.Yes)
+                        {
+                            // 如果已有保存路径，直接保存；否则显示保存对话框
+                            if (!string.IsNullOrEmpty(_currentFilePath))
+                            {
+                                SaveToFile(_currentFilePath);
+                            }
+                            else
+                            {
+                                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                                {
+                                    SaveToFile(saveFileDialog1.FileName);
+                                }
+                                else
+                                {
+                                    // 用户取消了保存对话框，取消打开操作
+                                    return;
+                                }
+                            }
+                        }
+                        else if (result == DialogResult.Cancel)
+                        {
+                            // 用户取消了操作
+                            return;
+                        }
+                        // 如果选择No，则不保存直接打开新文件
+                    }
+                    
+                    // 加载选中的文件
+                    SafeLoadFile(openFileDialog.FileName);
+                }
+            }
+        }
+
+        private void 新窗口ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // 创建并显示一个新的Form1实例
+            Form1 newForm = new Form1();
+            newForm.Show();
+        }
+
+        private void 保存ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // 如果已有保存路径，直接保存
+            if (!string.IsNullOrEmpty(_currentFilePath))
+            {
+                SaveToFile(_currentFilePath);
+            }
+            else
+            {
+                // 否则显示保存对话框
+                另存为ToolStripMenuItem_Click(sender, e);
+            }
+        }
+
+        private void 另存为ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1.FileName = _currentFilePath; // 使用当前文件名作为默认值
+            
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                SaveToFile(saveFileDialog1.FileName);
+            }
+        }
+
+        private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // 触发FormClosing事件，这样可以处理保存提示逻辑
+            this.Close();
         }
     }
 }
