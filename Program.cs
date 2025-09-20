@@ -17,6 +17,12 @@ namespace QueryStringView
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             
+            // 检查并注册文件关联
+            if (!RegistryHelper.IsFileAssociationRegistered())
+            {
+                RegistryHelper.RegisterFileAssociation();
+            }
+            
             // 创建主窗口实例
             Form1 mainForm = new Form1();
             
