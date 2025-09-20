@@ -163,6 +163,7 @@ namespace QueryStringView
 
                 // URL解码值
                 value = WebUtility.UrlDecode(value);
+                key = WebUtility.UrlDecode(key);
 
                 // 如果键已存在，则覆盖
                 if (parameters.ContainsKey(key))
