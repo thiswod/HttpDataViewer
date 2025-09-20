@@ -86,17 +86,18 @@ namespace QueryStringView
             if (cancellationToken.IsCancellationRequested)
                 return;
 
-            string Qeurystring = "";
+            string inputText = "";
             this.Invoke(() =>
             {
-                Qeurystring = textBox1.Text;
+                inputText = textBox1.Text;
             });
 
             // 再次检查是否已取消
             if (cancellationToken.IsCancellationRequested)
                 return;
 
-            Dictionary<string, string> keyValuePairs = QueryStringToDictionary(Qeurystring);
+            // 判断输入内容的类型并解析
+            Dictionary<string, string> keyValuePairs = ParseInputContent(inputText);
 
             // 再次检查是否已取消
             if (cancellationToken.IsCancellationRequested)
@@ -136,6 +137,29 @@ namespace QueryStringView
             }
         }
         /// <summary>
+        /// 解析输入内容，自动识别是查询字符串还是HTTP请求头
+        /// </summary>
+        /// <param name="inputText">输入的文本内容</param>
+        /// <returns>包含键值对的字典</returns>
+        public static Dictionary<string, string> ParseInputContent(string inputText)
+        {
+            if (string.IsNullOrWhiteSpace(inputText))
+                return new Dictionary<string, string>();
+
+            // 检查是否包含换行符，如果有则尝试解析为HTTP请求头
+            if (inputText.Contains('\n') || inputText.Contains('\r'))
+            {
+                // 尝试解析为HTTP请求头
+                var headers = ParseHttpRequestHeaders(inputText);
+                if (headers.Count > 0)
+                    return headers;
+            }
+
+            // 否则解析为查询字符串
+            return QueryStringToDictionary(inputText);
+        }
+
+        /// <summary>
         /// 将查询字符串转换为字典
         /// </summary>
         /// <param name="queryString">查询字符串，格式为key1=value1&key2=value2</param>
@@ -163,6 +187,7 @@ namespace QueryStringView
 
                 // URL解码值
                 value = WebUtility.UrlDecode(value);
+                key = WebUtility.UrlDecode(key);
 
                 // 如果键已存在，则覆盖
                 if (parameters.ContainsKey(key))
@@ -172,6 +197,40 @@ namespace QueryStringView
             }
 
             return parameters;
+        }
+
+        /// <summary>
+        /// 解析HTTP请求头
+        /// </summary>
+        /// <param name="headersText">HTTP请求头文本</param>
+        /// <returns>包含键值对的字典</returns>
+        public static Dictionary<string, string> ParseHttpRequestHeaders(string headersText)
+        {
+            var headers = new Dictionary<string, string>();
+            var lines = headersText.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (var line in lines)
+            {
+                // 跳过可能的请求行（如GET / HTTP/1.1）
+                if (line.Contains(' ') && !line.Contains(':'))
+                    continue;
+
+                // 解析请求头行，格式为：Header-Name: value
+                int colonIndex = line.IndexOf(':');
+                if (colonIndex > 0)
+                {
+                    string key = line.Substring(0, colonIndex).Trim();
+                    string value = colonIndex < line.Length - 1 ? line.Substring(colonIndex + 1).Trim() : "";
+
+                    // 如果键已存在，则覆盖
+                    if (headers.ContainsKey(key))
+                        headers[key] = value;
+                    else
+                        headers.Add(key, value);
+                }
+            }
+
+            return headers;
         }
 
         // 重写WndProc方法捕获窗口标题栏右键点击事件
