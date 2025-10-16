@@ -1,28 +1,30 @@
 # HttpDataViewer
 
 ## Project Introduction
-HttpDataViewer is a lightweight, efficient data parsing and visualization tool designed for developers and testers. It can quickly parse both URL query strings and HTTP request headers, displaying them in a structured table format with support for copying, modification, and file operations, greatly improving development and debugging efficiency.
+HttpDataViewer is a lightweight, efficient data parsing and visualization tool designed for developers and testers. It can quickly parse URL query strings, HTTP request headers, and Cookies strings, displaying them in a structured table format with support for copying, modification, sorting, and file operations, greatly improving development and debugging efficiency.
 
 ## Features
 
-1. **Dual Format Parsing** - Automatically recognize and parse both URL query strings and HTTP request headers
+1. **Triple Format Parsing** - Automatically recognize and parse URL query strings, HTTP request headers, and Cookies strings
 2. **Real-time Parsing** - Instantly parse and display key-value pairs as you type or paste
 3. **Structured Display** - Show serial number, key, value, key length, value length in table format
-4. **Right-click Operations** - Support copying cell content and modifying values through context menus
-5. **File Management** - Save, open, and export parsed data with .qsv file format
-6. **Performance Optimization** - Use custom SuperListView class with double buffering to improve display performance with large data
-7. **Thread Safety** - Use CancellationToken to avoid duplicate display issues during rapid input
-8. **Window Customization** - Support window always-on-top feature and custom window titles
-9. **Multi-window Support** - Open multiple instances of the application simultaneously for different parsing tasks
+4. **Click Sorting** - Click column headers to sort by key, value, or respective lengths in ascending/descending order
+5. **Right-click Operations** - Support copying cell content and modifying values through context menus
+6. **File Management** - Save, open, and export parsed data with .qsv file format
+7. **Performance Optimization** - Use custom SuperListView class with double buffering to improve display performance with large data
+8. **Thread Safety** - Use CancellationToken to avoid duplicate display issues during rapid input
+9. **Window Customization** - Support window always-on-top feature and custom window titles
+10. **Multi-window Support** - Open multiple instances of the application simultaneously for different parsing tasks
 
 ## How to Use
 
 1. Download and run the program
-2. Enter or paste either a URL query string (format: key1=value1&key2=value2) or HTTP request headers in the top text box
+2. Enter or paste a URL query string (format: key1=value1&key2=value2), HTTP request headers, or Cookies string (format: key1=value1; key2=value2) in the top text box
 3. The system will automatically recognize the format and parse the content
 4. Results will be displayed in the table below with serial number, key, value, key length, and value length
-5. Right-click on cells in the table to copy content or modify values
-6. Use the menu to save your work, open saved files, pin the window, or create new windows
+5. Click on table column headers to sort data in ascending or descending order
+6. Right-click on cells in the table to copy content or modify values
+7. Use the menu to save your work, open saved files, pin the window, or create new windows
 
 ## Installation
 

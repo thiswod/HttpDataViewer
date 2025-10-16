@@ -107,6 +107,8 @@ namespace QueryStringView
             this.Invoke(() =>
             {
                 listView1.Items.Clear();
+                // 清除排序状态，以便新数据显示时不应用旧的排序规则
+                listView1.ClearSort();
                 listView1.BeginUpdate();
             });
 
@@ -137,7 +139,7 @@ namespace QueryStringView
             }
         }
         /// <summary>
-        /// 解析输入内容，自动识别是查询字符串还是HTTP请求头
+        /// 解析输入内容，自动识别是查询字符串、HTTP请求头还是Cookies字符串
         /// </summary>
         /// <param name="inputText">输入的文本内容</param>
         /// <returns>包含键值对的字典</returns>
@@ -154,9 +156,67 @@ namespace QueryStringView
                 if (headers.Count > 0)
                     return headers;
             }
+            
+            // 检查是否包含多个分号且不包含等号+与号组合，尝试解析为Cookies字符串
+            int semicolonCount = inputText.Count(c => c == ';');
+            int ampersandCount = inputText.Count(c => c == '&');
+            int equalsCount = inputText.Count(c => c == '=');
+            
+            // 如果分号数量较多，并且不像是典型的查询字符串格式，则尝试解析为Cookies
+            if (semicolonCount > 2 && (ampersandCount == 0 || equalsCount > ampersandCount))
+            {
+                var cookies = ParseCookiesString(inputText);
+                if (cookies.Count > 0)
+                    return cookies;
+            }
 
             // 否则解析为查询字符串
             return QueryStringToDictionary(inputText);
+        }
+        
+        /// <summary>
+        /// 解析Cookies字符串
+        /// </summary>
+        /// <param name="cookiesText">Cookies字符串，格式为key1=value1; key2=value2</param>
+        /// <returns>包含键值对的字典</returns>
+        public static Dictionary<string, string> ParseCookiesString(string cookiesText)
+        {
+            var cookies = new Dictionary<string, string>();
+            
+            if (string.IsNullOrWhiteSpace(cookiesText))
+                return cookies;
+            
+            // 按分号分割Cookies项
+            var cookiePairs = cookiesText.Split(';', StringSplitOptions.RemoveEmptyEntries);
+            
+            foreach (var pair in cookiePairs)
+            {
+                // 去除前后空格
+                var trimmedPair = pair.Trim();
+                if (string.IsNullOrEmpty(trimmedPair))
+                    continue;
+                
+                // 查找第一个等号位置
+                int equalsIndex = trimmedPair.IndexOf('=');
+                if (equalsIndex > 0) // 确保等号前有内容
+                {
+                    string key = trimmedPair.Substring(0, equalsIndex).Trim();
+                    string value = equalsIndex < trimmedPair.Length - 1 ? 
+                        trimmedPair.Substring(equalsIndex + 1).Trim() : "";
+                    
+                    // URL解码值
+                    value = WebUtility.UrlDecode(value);
+                    key = WebUtility.UrlDecode(key);
+                    
+                    // 如果键已存在，则覆盖
+                    if (cookies.ContainsKey(key))
+                        cookies[key] = value;
+                    else
+                        cookies.Add(key, value);
+                }
+            }
+            
+            return cookies;
         }
 
         /// <summary>
