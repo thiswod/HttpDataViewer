@@ -1,48 +1,54 @@
-# QueryStringView
+# HttpDataViewer
 
-## Project Introduction
-QueryStringView is a lightweight, efficient URL query string parsing and visualization tool designed for developers and testers. It can quickly parse URL query strings and display them in a structured table format, supporting copy and modification operations, greatly improving development and debugging efficiency.
+## 项目简介
+HttpDataViewer 是一款轻量级、高效的数据解析和可视化工具，专为开发人员和测试工程师设计。它能够快速解析URL查询字符串和HTTP请求头，并以结构化表格形式展示，支持复制、修改和文件操作，极大提升开发和调试效率。
 
-## Features
+## 功能特性
 
-1. **Real-time Parsing** - Automatically parse and display key-value pairs after entering query string
-2. **Structured Display** - Show serial number, key, value, key length, value length in table format
-3. **Right-click Operations** - Support convenient operations of copying keys and modifying values
-4. **Performance Optimization** - Use custom SuperListView class with double buffering to improve display performance with large data
-5. **Thread Safety** - Use CancellationToken to avoid duplicate display issues during rapid input
+1. **双格式解析** - 自动识别并解析URL查询字符串和HTTP请求头
+2. **即时解析** - 输入或粘贴内容后立即解析并展示键值对
+3. **结构化展示** - 以表格形式展示序号、键、值、键长度、值长度
+4. **右键操作** - 通过上下文菜单支持复制单元格内容和修改值
+5. **文件管理** - 使用.qsv文件格式保存、打开和导出解析数据
+6. **性能优化** - 使用自定义SuperListView类实现双缓冲，提升大数据量下的显示性能
+7. **线程安全** - 使用CancellationToken避免快速输入时出现的重复显示问题
+8. **窗口定制** - 支持窗口置顶功能和自定义窗口标题
+9. **多窗口支持** - 可同时打开多个应用实例处理不同的解析任务
 
-## How to Use
+## 如何使用
 
-1. Download and run the program
-2. Enter or paste the URL query string in the top text box (format: key1=value1&key2=value2)
-3. The system will automatically parse and display the results in the table below
-4. Right-click on cells in the table to copy keys or modify values
+1. 下载并运行程序
+2. 在顶部文本框中输入或粘贴URL查询字符串（格式：key1=value1&key2=value2）或HTTP请求头
+3. 系统会自动识别格式并解析内容
+4. 结果将显示在下方表格中，包含序号、键、值、键长度和值长度
+5. 右键点击表格中的单元格可以复制内容或修改值
+6. 使用菜单保存工作、打开已保存的文件、固定窗口或创建新窗口
 
-## Installation
+## 安装说明
 
-1. Ensure your computer has [.NET 8.0 or higher](https://dotnet.microsoft.com/download/dotnet/8.0) installed
-2. Download the latest release from GitHub
-3. Unzip the files and run QueryStringView.exe
+1. 确保您的电脑已安装 [.NET 8.0 或更高版本](https://dotnet.microsoft.com/download/dotnet/8.0)
+2. 从GitHub下载最新的发布版本
+3. 解压文件并运行 HttpDataViewer.exe
 
-## Tech Stack
+## 技术栈
 - C#
 - .NET 8.0
 - Windows Forms
 
-## Development
+## 开发说明
 
-If you want to participate in development, you can follow these steps:
-1. Clone the code repository
-2. Open the solution with Visual Studio 2022 or higher
-3. Develop and debug
-4. Submit a Pull Request
+如果您想参与开发，可以按照以下步骤操作：
+1. 克隆代码仓库
+2. 使用Visual Studio 2022或更高版本打开解决方案
+3. 进行开发和调试
+4. 提交Pull Request
 
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+## 许可证
+本项目采用 MIT 许可证 - 详见 [LICENSE](LICENSE) 文件
 
-## Contributions
-Contributions are welcome! Please submit issues and suggestions to help us improve this tool!
+## 贡献
+欢迎提交问题和建议，帮助我们改进这个工具！
 
-## Multi-language Support
-This project supports multi-language documentation. You can view the following translations:
-- [README_ZH.md](README_ZH.md) - Chinese Simplified (简体中文)
+## 多语言支持
+此项目支持多语言文档，您可以查看以下版本：
+- [README_EN.md](README_EN.md) - English (英文)
