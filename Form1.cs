@@ -592,7 +592,7 @@ namespace QueryStringView
         {
             // 创建并显示一个新的Form1实例
             Form1 newForm = new Form1();
-            newForm.Show();
+            newForm.Show(this);
         }
 
         private void 保存ToolStripMenuItem_Click(object sender, EventArgs e)
