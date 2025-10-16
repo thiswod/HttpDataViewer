@@ -3,6 +3,9 @@
 ## Project Introduction
 HttpDataViewer is a lightweight, efficient data parsing and visualization tool designed for developers and testers. It can quickly parse URL query strings, HTTP request headers, and Cookies strings, displaying them in a structured table format with support for copying, modification, sorting, and file operations, greatly improving development and debugging efficiency.
 
+## Program Interface Preview
+![Program Interface Preview](img/Snipaste_2025-10-17_16-39-05.png)
+
 ## Features
 
 1. **Triple Format Parsing** - Automatically recognize and parse URL query strings, HTTP request headers, and Cookies strings
